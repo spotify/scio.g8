@@ -5,7 +5,6 @@ import com.typesafe.sbt.SbtGit.GitKeys._
 
 // Variables:
 val scioVersion = "0.3.1"
-val slf4jVersion = "1.7.13"
 val scalaMacrosVersion = "2.1.0"
 
 lazy val commonSettings = Defaults.coreDefaultSettings ++ packAutoSettings ++ Seq(
