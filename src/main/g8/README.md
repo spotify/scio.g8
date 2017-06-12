@@ -6,4 +6,4 @@ TODO: project description
 
 ---
 
-This project is based on the [scio-template][scio-template].
+This project is based on the [scio-template](https://github.com/spotify/scio-template).
