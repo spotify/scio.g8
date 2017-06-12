@@ -1,9 +1,7 @@
-
 import sbt._
 import Keys._
 import com.typesafe.sbt.SbtGit.GitKeys._
 
-// Variables:
 val scioVersion = "0.3.1"
 val scalaMacrosVersion = "2.1.0"
 
@@ -12,8 +10,12 @@ lazy val commonSettings = Defaults.coreDefaultSettings ++ packAutoSettings ++ Se
   // Semantic versioning http://semver.org/
   version               := "0.1.0-SNAPSHOT",
   scalaVersion          := "2.11.11",
-  scalacOptions         ++= Seq("-target:jvm-1.8", "-deprecation", "-feature", "-unchecked"),
-  javacOptions          ++= Seq("-source", "1.8", "-target", "1.8")
+  scalacOptions         ++= Seq("-target:jvm-1.8",
+                                "-deprecation",
+                                "-feature",
+                                "-unchecked"),
+  javacOptions          ++= Seq("-source", "1.8",
+                                "-target", "1.8")
 )
 
 lazy val paradiseDependency =
