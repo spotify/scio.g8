@@ -42,3 +42,17 @@ lazy val root: Project = Project(
     )
   )
 )
+
+lazy val repl: Project = Project(
+  "repl",
+  file(".repl"),
+  settings = commonSettings ++ macroSettings ++ noPublishSettings ++ Seq(
+    description := "Scio REPL for $name$",
+    libraryDependencies ++= Seq(
+      "com.spotify" %% "scio-repl" % scioVersion
+    ),
+    mainClass in Compile := Some("com.spotify.scio.repl.ScioShell")
+  )
+).dependsOn(
+  root
+)
