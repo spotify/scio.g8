@@ -31,7 +31,7 @@ lazy val noPublishSettings = Seq(
 )
 
 lazy val root: Project = Project(
-  """$name;format="lower,hyphen"$""",
+  "$name;format="lower,hyphen"$",
   file("."),
   settings = commonSettings ++ macroSettings ++ noPublishSettings ++ Seq(
     description := "$name$",
