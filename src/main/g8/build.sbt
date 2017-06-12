@@ -38,6 +38,7 @@ lazy val root: Project = Project(
     description := "$name$",
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
+      "org.slf4j" % "slf4j-simple" % "1.7.13",
       "com.spotify" %% "scio-test" % scioVersion % "test"
     )
   )
