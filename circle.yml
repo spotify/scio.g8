@@ -18,4 +18,5 @@ dependencies:
 
 test:
   override:
-    - sbt g8Test
+    - sbt test
+    - cd target/g8/scio-job && sbt test # explicit due to bug https://github.com/foundweekends/giter8/issues/292
