@@ -7,11 +7,13 @@ Scio template
 
 ## Raison d'être:
 
-A [Giter8][g8] template for [scio][scio]!
+A [Giter8][g8] template for [scio][scio].
 
 ```
-sbt new spotify/scio-template
+sbt new spotify/scio-template.g8
 ```
+
+Requires sbt version >= `0.13.13`.
 
 [g8]: http://www.foundweekends.org/giter8/
 [scio]: http://github.com/spotify/scio/
