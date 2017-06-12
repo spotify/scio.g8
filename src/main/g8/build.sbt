@@ -25,9 +25,6 @@ lazy val macroSettings = Seq(
   addCompilerPlugin(paradiseDependency)
 )
 
-lazy val dirtyGit = taskKey[String]("dirty git tag")
-dirtyGit in ThisBuild := { if (gitUncommittedChanges.value) ".DIRTY" else "" }
-
 lazy val noPublishSettings = Seq(
   publish := {},
   publishLocal := {},
