@@ -1,6 +1,5 @@
 import sbt._
 import Keys._
-import com.typesafe.sbt.SbtGit.GitKeys._
 
 val scioVersion = "0.3.1"
 val scalaMacrosVersion = "2.1.0"
