@@ -1,4 +1,4 @@
-package example
+package $organization$
 
 import com.spotify.scio.testing._
 
