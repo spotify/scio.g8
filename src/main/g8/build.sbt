@@ -1,7 +1,7 @@
 import sbt._
 import Keys._
 
-val scioVersion = "0.3.1"
+val scioVersion = "0.3.2"
 val scalaMacrosVersion = "2.1.0"
 
 lazy val commonSettings = Defaults.coreDefaultSettings ++ packAutoSettings ++ Seq(
