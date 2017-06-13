@@ -7,7 +7,7 @@ Scio template
 
 ## Raison d'être:
 
-A [Giter8][g8] template for [scio][scio].
+A [Giter8][g8] template for [Scio][scio].
 
 ```
 sbt new spotify/scio-template.g8
