@@ -14,8 +14,7 @@ lazy val commonSettings = Defaults.coreDefaultSettings ++ packAutoSettings ++ Se
                                 "-feature",
                                 "-unchecked"),
   javacOptions          ++= Seq("-source", "1.8",
-                                "-target", "1.8",
-                                "-Dsun.io.serialization.extendedDebugInfo=true")
+                                "-target", "1.8")
 )
 
 lazy val paradiseDependency =
