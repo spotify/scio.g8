@@ -4,7 +4,7 @@ import Keys._
 val scioVersion = "0.3.5"
 val scalaMacrosVersion = "2.1.0"
 
-lazy val commonSettings = Defaults.coreDefaultSettings ++ packAutoSettings ++ Seq(
+lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
   organization          := "$organization$",
   // Semantic versioning http://semver.org/
   version               := "0.1.0-SNAPSHOT",
@@ -37,11 +37,11 @@ lazy val root: Project = Project(
     description := "$name$",
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
-      "org.slf4j" % "slf4j-simple" % "1.7.13",
+      "org.slf4j" % "slf4j-simple" % "1.7.25",
       "com.spotify" %% "scio-test" % scioVersion % "test"
     )
   )
-)
+).enablePlugins(PackPlugin)
 
 lazy val repl: Project = Project(
   "repl",
