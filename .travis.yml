@@ -1,0 +1,23 @@
+language: scala
+matrix:
+  include:
+    - scala: 2.11.11
+      jdk: oraclejdk8
+
+cache:
+  directories:
+    - $HOME/.sbt/boot
+    - $HOME/.ivy2/cache
+
+script:
+  - sbt test
+  - cd target/g8/scio-job && sbt scalastyle test # explicit due to bug https://github.com/foundweekends/giter8/issues/292
+
+  # Tricks to avoid unnecessary cache updates
+  - find $HOME/.sbt -name "*.lock" -delete
+  - find $HOME/.ivy2 -name "ivydata-*.properties" -delete
+
+notifications:
+  email:
+    - neville.lyh@gmail.com
+    - rav@spotify.com
