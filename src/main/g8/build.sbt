@@ -8,7 +8,7 @@ lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
   organization          := "$organization$",
   // Semantic versioning http://semver.org/
   version               := "0.1.0-SNAPSHOT",
-  scalaVersion          := "2.11.11",
+  scalaVersion          := "2.12.3",
   scalacOptions         ++= Seq("-target:jvm-1.8",
                                 "-deprecation",
                                 "-feature",
