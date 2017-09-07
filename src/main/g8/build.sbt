@@ -32,27 +32,27 @@ lazy val noPublishSettings = Seq(
 
 lazy val root: Project = Project(
   "$name;format="lower,hyphen"$",
-  file("."),
-  settings = commonSettings ++ macroSettings ++ noPublishSettings ++ Seq(
-    description := "$name$",
-    libraryDependencies ++= Seq(
-      "com.spotify" %% "scio-core" % scioVersion,
-      "org.slf4j" % "slf4j-simple" % "1.7.25",
-      "com.spotify" %% "scio-test" % scioVersion % "test"
-    )
+  file(".")
+).settings(
+  commonSettings ++ macroSettings ++ noPublishSettings,
+  description := "$name$",
+  libraryDependencies ++= Seq(
+    "com.spotify" %% "scio-core" % scioVersion,
+    "com.spotify" %% "scio-test" % scioVersion % "test",
+    "org.slf4j" % "slf4j-simple" % "1.7.25"
   )
 ).enablePlugins(PackPlugin)
 
 lazy val repl: Project = Project(
   "repl",
-  file(".repl"),
-  settings = commonSettings ++ macroSettings ++ noPublishSettings ++ Seq(
-    description := "Scio REPL for $name$",
-    libraryDependencies ++= Seq(
-      "com.spotify" %% "scio-repl" % scioVersion
-    ),
-    mainClass in Compile := Some("com.spotify.scio.repl.ScioShell")
-  )
+  file(".repl")
+).settings(
+  commonSettings ++ macroSettings ++ noPublishSettings,
+  description := "Scio REPL for $name$",
+  libraryDependencies ++= Seq(
+    "com.spotify" %% "scio-repl" % scioVersion
+  ),
+  mainClass in Compile := Some("com.spotify.scio.repl.ScioShell")
 ).dependsOn(
   root
 )
