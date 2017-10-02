@@ -2,6 +2,7 @@ import sbt._
 import Keys._
 
 val scioVersion = "0.4.2"
+val beamVersion = "2.1.0"
 val scalaMacrosVersion = "2.1.0"
 
 lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
@@ -40,6 +41,8 @@ lazy val root: Project = Project(
   libraryDependencies ++= Seq(
     "com.spotify" %% "scio-core" % scioVersion,
     "com.spotify" %% "scio-test" % scioVersion % "test",
+    // optional direct runner
+    // "org.apache.beam" % "beam-runners-direct-java" % beamVersion,
     "org.slf4j" % "slf4j-simple" % "1.7.25"
   )
 ).enablePlugins(PackPlugin)
