@@ -11,7 +11,6 @@ cache:
 
 script:
   - sbt test
-  - cd target/g8/scio-job && sbt scalastyle test # explicit due to bug https://github.com/foundweekends/giter8/issues/292
 
   # Tricks to avoid unnecessary cache updates
   - find $HOME/.sbt -name "*.lock" -delete
