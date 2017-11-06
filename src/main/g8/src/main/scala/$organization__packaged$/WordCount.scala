@@ -3,10 +3,10 @@ package $organization$
 import com.spotify.scio._
 
 /*
-sbt run example.WordCount
+sbt "runMain [PACKAGE].WordCount
   --project=[PROJECT] --runner=DataflowRunner --zone=[ZONE]
   --input=gs://dataflow-samples/shakespeare/kinglear.txt
-  --output=gs://[BUCKET]/[PATH]/wordcount
+  --output=gs://[BUCKET]/[PATH]/wordcount"
 */
 
 object WordCount {
