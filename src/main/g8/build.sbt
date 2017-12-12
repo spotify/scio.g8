@@ -53,7 +53,6 @@ lazy val repl: Project = Project(
 ).settings(
   commonSettings ++ macroSettings ++ noPublishSettings,
   description := "Scio REPL for $name$",
-  fork in run := true,
   libraryDependencies ++= Seq(
     "com.spotify" %% "scio-repl" % scioVersion
   ),
