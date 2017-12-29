@@ -37,7 +37,6 @@ lazy val root: Project = Project(
 ).settings(
   commonSettings ++ macroSettings ++ noPublishSettings,
   description := "$name$",
-  fork in run := true,
   libraryDependencies ++= Seq(
     "com.spotify" %% "scio-core" % scioVersion,
     "com.spotify" %% "scio-test" % scioVersion % "test",
