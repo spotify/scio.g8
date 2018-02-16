@@ -48,4 +48,4 @@ sbt repl/run
 
 ---
 
-This project is based on the [scio-template](https://github.com/spotify/scio-template).
+This project is based on the [scio.g8](https://github.com/spotify/scio.g8).

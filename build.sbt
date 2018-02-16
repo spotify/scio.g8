@@ -1,6 +1,6 @@
 lazy val root = project.in(file("."))
   .settings(
-    name := "scio-template.g8",
+    name := "scio.g8",
     test in Test := {
       val _ = (g8Test in Test).toTask("").value
     },
