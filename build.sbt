@@ -9,6 +9,5 @@ lazy val root = project.in(file("."))
                                 "-XX:ReservedCodeCacheSize=128m",
                                 "-XX:MaxPermSize=256m",
                                 "-Xss2m",
-                                "-Dfile.encoding=UTF-8"),
-    resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns)
+                                "-Dfile.encoding=UTF-8")
   )
