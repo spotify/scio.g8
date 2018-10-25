@@ -1,15 +1,15 @@
 import sbt._
 import Keys._
 
-val scioVersion = "0.5.6"
-val beamVersion = "2.5.0"
+val scioVersion = "0.6.1"
+val beamVersion = "2.6.0"
 val scalaMacrosVersion = "2.1.1"
 
 lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
   organization := "$organization$",
   // Semantic versioning http://semver.org/
   version := "0.1.0-SNAPSHOT",
-  scalaVersion := "2.11.12",
+  scalaVersion := "2.12.7",
   scalacOptions ++= Seq("-target:jvm-1.8",
                         "-deprecation",
                         "-feature",
