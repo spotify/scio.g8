@@ -1,5 +1,6 @@
 package $organization$
 
+import com.spotify.scio.io.TextIO
 import com.spotify.scio.testing._
 
 class WordCountTest extends PipelineSpec {
