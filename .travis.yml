@@ -3,6 +3,8 @@ matrix:
   include:
     - scala: 2.12.10
       jdk: openjdk8
+    - scala: 2.12.10
+      jdk: openjdk11
 
 cache:
   directories:
