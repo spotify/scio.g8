@@ -32,6 +32,7 @@ lazy val root: Project = project
     name := "$name;format="lower,hyphen"$",
     description := "$name$",
     publish / skip := true,
+    run / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
       "com.spotify" %% "scio-test" % scioVersion % Test,
