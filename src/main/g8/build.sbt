@@ -1,8 +1,8 @@
 import sbt._
 import Keys._
 
-val scioVersion = "0.7.4"
-val beamVersion = "2.11.0"
+val scioVersion = "0.8.0"
+val beamVersion = "2.17.0"
 val scalaMacrosVersion = "2.1.1"
 
 lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
