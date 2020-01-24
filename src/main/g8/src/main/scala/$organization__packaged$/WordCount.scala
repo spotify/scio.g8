@@ -24,6 +24,6 @@ object WordCount {
       .map(t => t._1 + ": " + t._2)
       .saveAsTextFile(output)
 
-    val result = sc.close().waitUntilFinish()
+    val result = sc.run().waitUntilFinish()
   }
 }
