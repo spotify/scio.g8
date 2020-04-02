@@ -6,6 +6,8 @@ Scio giter8 template
 
 A [Giter8][g8] template for [Scio][scio] that includes a simple [WordCount][WordCount] job to help you getting started.
 
+[![asciicast](https://asciinema.org/a/2UbkLYD3BQgdQnXjuMeI7c8dZ.svg)](https://asciinema.org/a/2UbkLYD3BQgdQnXjuMeI7c8dZ?autoplay=1)
+
 ## Running
 
 1. Download and install the [Java Development Kit (JDK)](https://adoptopenjdk.net/index.html) version 8 or 11.
