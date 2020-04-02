@@ -4,6 +4,12 @@ import Keys._
 val scioVersion = "0.8.4"
 val beamVersion = "2.19.0"
 val scalaMacrosVersion = "2.1.1"
+$if(FlinkRunner.truthy)$
+val flinkVersion = "1.9.1"
+$endif$
+$if(SparkRunner.truthy)$
+val sparkVersion = "2.4.4"
+$endif$
 
 lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
   organization := "$organization$",
@@ -37,8 +43,27 @@ lazy val root: Project = project
       "com.spotify" %% "scio-core" % scioVersion,
       "com.spotify" %% "scio-test" % scioVersion % Test,
       "org.apache.beam" % "beam-runners-direct-java" % beamVersion,
-      // optional dataflow runner
-      // "org.apache.beam" % "beam-runners-google-cloud-dataflow-java" % beamVersion,
+      $if(DataflowRunner.truthy)$
+      "org.apache.beam" % "beam-runners-google-cloud-dataflow-java" % beamVersion,
+      $endif$
+      $if(FlinkRunner.truthy)$
+      "org.apache.beam" % "beam-runners-flink-1.9" % beamVersion excludeAll (
+        ExclusionRule("com.twitter", "chill_2.11"),
+        ExclusionRule("org.apache.flink", "flink-clients_2.11"),
+        ExclusionRule("org.apache.flink", "flink-runtime_2.11"),
+        ExclusionRule("org.apache.flink", "flink-streaming-java_2.11")
+      ),
+      "org.apache.flink" %% "flink-clients" % flinkVersion,
+      "org.apache.flink" %% "flink-runtime" % flinkVersion,
+      "org.apache.flink" %% "flink-streaming-java" % flinkVersion,
+      $endif$
+      $if(SparkRunner.truthy)$
+      "org.apache.beam" % "beam-runners-spark" % beamVersion exclude (
+        "com.fasterxml.jackson.module", "jackson-module-scala_2.11"
+      ),
+      "org.apache.spark" %% "spark-core" % sparkVersion,
+      "org.apache.spark" %% "spark-streaming" % sparkVersion,
+      $endif$
       "org.slf4j" % "slf4j-simple" % "1.7.25"
     )
   )
