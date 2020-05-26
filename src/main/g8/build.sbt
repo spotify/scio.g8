@@ -15,25 +15,18 @@ lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
   organization := "$organization$",
   // Semantic versioning http://semver.org/
   version := "0.1.0-SNAPSHOT",
-  scalaVersion := "2.12.11",
+  scalaVersion := "2.13.2",
   scalacOptions ++= Seq("-target:jvm-1.8",
                         "-deprecation",
                         "-feature",
-                        "-unchecked"),
+                        "-unchecked",
+                        "-Ymacro-annotations"),
   javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
-)
-
-lazy val paradiseDependency =
-  "org.scalamacros" % "paradise" % scalaMacrosVersion cross CrossVersion.full
-lazy val macroSettings = Seq(
-  libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-  addCompilerPlugin(paradiseDependency)
 )
 
 lazy val root: Project = project
   .in(file("."))
   .settings(commonSettings)
-  .settings(macroSettings)
   .settings(
     name := "$name;format="lower,hyphen"$",
     description := "$name$",
@@ -72,7 +65,6 @@ lazy val root: Project = project
 lazy val repl: Project = project
   .in(file(".repl"))
   .settings(commonSettings)
-  .settings(macroSettings)
   .settings(
     name := "repl",
     description := "Scio REPL for $name$",
