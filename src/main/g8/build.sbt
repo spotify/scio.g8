@@ -11,7 +11,7 @@ $if(SparkRunner.truthy)$
 val sparkVersion = "2.4.4"
 $endif$
 
-lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
+lazy val commonSettings = Def.settings(
   organization := "$organization$",
   // Semantic versioning http://semver.org/
   version := "0.1.0-SNAPSHOT",
@@ -25,7 +25,7 @@ lazy val commonSettings = Defaults.coreDefaultSettings ++ Seq(
 
 lazy val paradiseDependency =
   "org.scalamacros" % "paradise" % scalaMacrosVersion cross CrossVersion.full
-lazy val macroSettings = Seq(
+lazy val macroSettings = Def.settings(
   libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value,
   addCompilerPlugin(paradiseDependency)
 )
