@@ -1,0 +1,16 @@
+{
+    "name": "WordCount Example",
+    "description": "",
+    "parameters": [
+        {
+            "name": "input",
+            "label": "GCS input text file",
+            "helpText": "GCS input text file"
+        },
+        {
+            "name": "output",
+            "label": "GCS output text file",
+            "helpText": "GCS output text file"
+        }
+    ]
+}

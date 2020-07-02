@@ -16,17 +16,7 @@ A [Giter8][g8] template for [Scio][scio] that includes a simple [WordCount][Word
 4. `sbt stage`
 5. `target/universal/stage/bin/word-count --output=wc`
 
-## Packaging formats
-
-This template comes with [sbt-native-packager](https://sbt-native-packager.readthedocs.io) and it allows you to build **zips**, **docker** images, etc. Have a look at the documentation for more details.
-
-```bash
-sbt
-# create a zip file
-> universal:packageBin
-# publish a docker image to your local registry
-> docker:publishLocal
-```
+⚠️ Check your project `README.md` for further details ⚠️
 
 [g8]: http://www.foundweekends.org/giter8/
 [scio]: http://github.com/spotify/scio/

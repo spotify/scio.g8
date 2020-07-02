@@ -1,5 +1,10 @@
 import sbt._
 import Keys._
+$if(DataflowFlexTemplate.truthy)$
+import com.typesafe.sbt.packager.docker._
+import scala.sys.process._
+import complete.DefaultParsers._
+$endif$
 
 val scioVersion = "0.9.2"
 val beamVersion = "2.22.0"
@@ -30,6 +35,9 @@ lazy val commonSettings = Def.settings(
 lazy val root: Project = project
   .in(file("."))
   .settings(commonSettings)
+  $if(DataflowFlexTemplate.truthy)$
+  .settings(assemblySettings)
+  $endif$
   .settings(
     name := "$name;format="lower,hyphen"$",
     description := "$name$",
@@ -64,6 +72,9 @@ lazy val root: Project = project
     )
   )
   .enablePlugins(JavaAppPackaging)
+  $if(DataflowFlexTemplate.truthy)$
+  .enablePlugins(DockerPlugin)
+  $endif$
 
 lazy val repl: Project = project
   .in(file(".repl"))
@@ -78,3 +89,71 @@ lazy val repl: Project = project
     publish / skip := true
   )
   .dependsOn(root)
+
+$if(DataflowFlexTemplate.truthy)$
+lazy val gcpProject = settingKey[String]("GCP Project")
+lazy val gcpRegion = settingKey[String]("GCP region")
+lazy val createFlextTemplate = inputKey[Unit]("create DataflowFlexTemplate")
+lazy val runFlextTemplate = inputKey[Unit]("run DataflowFlexTemplate")
+
+lazy val assemblySettings = Def.settings(
+  gcpProject := "",
+  gcpRegion := "",
+  assembly / test := {},
+  assembly / assemblyJarName := "flex-wordcount.jar",
+  assembly / assemblyMergeStrategy ~= { old =>
+    {
+      case s if s.endsWith(".properties") => MergeStrategy.filterDistinctLines
+      case s if s.endsWith("public-suffix-list.txt") =>
+        MergeStrategy.filterDistinctLines
+      case s if s.endsWith(".class") => MergeStrategy.last
+      case s if s.endsWith(".proto") => MergeStrategy.last
+      case s                         => old(s)
+    }
+  },
+  Universal / mappings := {
+    val fatJar = (Compile / assembly).value
+    val filtered = (Universal / mappings).value.filter {
+      case (_, name) => !name.endsWith(".jar")
+    }
+    filtered :+ (fatJar -> (s"lib/\${fatJar.getName}"))
+  },
+  Docker / packageName := s"gcr.io/\${gcpProject.value}/dataflow/templates/DataflowFlexTemplate",
+  Docker / dockerCommands := Seq(
+    Cmd(
+      "FROM",
+      "gcr.io/dataflow-templates-base/java11-template-launcher-base:latest"
+    ),
+    Cmd(
+      "ENV",
+      "FLEX_TEMPLATE_JAVA_MAIN_CLASS",
+      (assembly / mainClass).value.getOrElse("")
+    ),
+    Cmd(
+      "ENV",
+      "FLEX_TEMPLATE_JAVA_CLASSPATH",
+      s"/template/\${(assembly / assemblyJarName).value}"
+    ),
+    ExecCmd(
+      "COPY",
+      s"1/opt/docker/lib/\${(assembly / assemblyJarName).value}",
+      "\${FLEX_TEMPLATE_JAVA_CLASSPATH}"
+    )
+  ),
+  createFlextTemplate := {
+    val _ = (Docker / publish).value
+    s"""gcloud beta dataflow DataflowFlexTemplate build 
+          gs://\${gcpProject.value}/dataflow/templates/\${name.value}.json
+          --image \${dockerAlias.value}
+          --sdk-language JAVA
+          --metadata-file metadata.json""" !
+  },
+  runFlextTemplate := {
+    val parameters = spaceDelimited("<arg>").parsed
+    s"""gcloud beta dataflow DataflowFlexTemplate run \${name.value}
+    	--template-file-gcs-location gs://\${gcpProject.value}/dataflow/templates/\${name.value}.json
+    	--region=\${gcpRegion.value}
+    	--parameters \${parameters.mkString(",")}""" !
+  }
+)
+$endif$
