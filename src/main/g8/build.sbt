@@ -1,8 +1,8 @@
 import sbt._
 import Keys._
 
-val scioVersion = "0.9.1"
-val beamVersion = "2.20.0"
+val scioVersion = "0.9.2"
+val beamVersion = "2.22.0"
 val scalaMacrosVersion = "2.1.1"
 $if(FlinkRunner.truthy)$
 val flinkVersion = "1.9.1"
