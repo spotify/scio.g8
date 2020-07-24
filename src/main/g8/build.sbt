@@ -63,7 +63,7 @@ lazy val root: Project = project
       "org.slf4j" % "slf4j-simple" % "1.7.25"
     )
   )
-  .enablePlugins(PackPlugin)
+  .enablePlugins(JavaAppPackaging)
 
 lazy val repl: Project = project
   .in(file(".repl"))
