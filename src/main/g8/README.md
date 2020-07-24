@@ -1,40 +1,36 @@
 # $name$
 
-## Raison d'être:
+## Raison d'être
 
 TODO: your project description
 
-## Features:
+## Features
 
 This project comes with number of preconfigured features, including:
 
-### sbt-pack
+### Running
 
-Use `sbt-pack` instead of `sbt-assembly` to:
- * reduce build time
- * enable efficient dependency caching
- * reduce job submission time
+* `sbt stage`
+* `target/universal/stage/bin/word-count --output=wc`
 
-To build package run:
+### Packaging
 
-```
-sbt pack
+This template comes with [sbt-native-packager](https://sbt-native-packager.readthedocs.io) and it allows you to build **zips**, **docker** images, etc. Have a look at the documentation for more details.
+
+```bash
+sbt
+# create a zip file
+> universal:packageBin
+# publish a docker image to your local registry
+> docker:publishLocal
 ```
 
 ### Testing
 
 This template comes with an example of a test, to run tests:
 
-```
+```bash
 sbt test
-```
-
-### Scala style
-
-Find style configuration in `scalastyle-config.xml`. To enforce style run:
-
-```
-sbt scalastyle
 ```
 
 ### REPL
@@ -42,9 +38,36 @@ sbt scalastyle
 To experiment with current codebase in [Scio REPL](https://github.com/spotify/scio/wiki/Scio-REPL)
 simply:
 
-```
+```bash
 sbt repl/run
 ```
+
+$if(DataflowFlexTemplate.truthy)$
+### Dataflow `Flex Template` usage
+
+#### Google Cloud PLatform settings
+
+```sbt
+set gcpProject := "<YOUR PROJECT>"
+set gcpRegion := "europe-west1"
+```
+
+#### Creating the template
+
+```bash
+sbt createFlexTemplate
+```
+
+Will build the docker image and publish it to [Google Container Registry](https://cloud.google.com/container-registry)
+
+JSON template will be uploaded to `gs://<YOUR PROJECT>/dataflow/templates/flex-template.json`
+
+#### Triggering a run!
+
+```bash
+sbt runFlextTemplate input=gs://dataflow-samples/shakespeare/kinglear.txt output=gs://<OUTPUT>
+```
+$endif$
 
 ---
 

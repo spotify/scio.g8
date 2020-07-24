@@ -1,0 +1,22 @@
+{
+  "name": "WordCount Example",
+  "description": "",
+  "parameters": [
+    {
+      "regexes": [
+        "^gs:\\/\\/[^\\n\\r]+$"
+      ],
+      "name": "input",
+      "label": "GCS input text file",
+      "helpText": "GCS input text file"
+    },
+    {
+      "regexes": [
+        "^gs:\\/\\/[^\\n\\r]+$"
+      ],
+      "name": "output",
+      "label": "GCS output text file",
+      "helpText": "GCS output text file"
+    }
+  ]
+}
