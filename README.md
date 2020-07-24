@@ -13,12 +13,20 @@ A [Giter8][g8] template for [Scio][scio] that includes a simple [WordCount][Word
 1. Download and install the [Java Development Kit (JDK)](https://adoptopenjdk.net/index.html) version 8 or 11.
 2. [Install sbt](http://www.scala-sbt.org/1.x/docs/Setup.html)
 3. `sbt new spotify/scio.g8`
-4. `sbt pack`
-5. `target/pack/bin/word-count --output=wc`
+4. `sbt stage`
+5. `target/universal/stage/bin/word-count --output=wc`
 
-Notes:
+## Packaging formats
 
-We have enabled beam's `DirectRunner`. To use other runners, you need to manually add the required [dependency](src/main/g8/build.sbt#L45).    
+This template comes with [sbt-native-packager](https://sbt-native-packager.readthedocs.io) and it allows you to build **zips**, **docker** images, etc. Have a look at the documentation for more details.
+
+```bash
+sbt
+# create a zip file
+> universal:packageBin
+# publish a docker image to your local registry
+> docker:publishLocal
+```
 
 [g8]: http://www.foundweekends.org/giter8/
 [scio]: http://github.com/spotify/scio/
