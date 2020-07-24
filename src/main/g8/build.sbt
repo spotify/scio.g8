@@ -47,7 +47,7 @@ lazy val root: Project = project
       "com.spotify" %% "scio-core" % scioVersion,
       "com.spotify" %% "scio-test" % scioVersion % Test,
       "org.apache.beam" % "beam-runners-direct-java" % beamVersion,
-      $if(DataflowRunner.truthy)$
+      $if(DataflowRunner.truthy || DataflowFlexTemplate.truthy)$
       "org.apache.beam" % "beam-runners-google-cloud-dataflow-java" % beamVersion,
       $endif$
       $if(FlinkRunner.truthy)$
@@ -72,9 +72,6 @@ lazy val root: Project = project
     )
   )
   .enablePlugins(JavaAppPackaging)
-  $if(DataflowFlexTemplate.truthy)$
-  .enablePlugins(DockerPlugin)
-  $endif$
 
 lazy val repl: Project = project
   .in(file(".repl"))
@@ -108,6 +105,7 @@ lazy val assemblySettings = Def.settings(
         MergeStrategy.filterDistinctLines
       case s if s.endsWith(".class") => MergeStrategy.last
       case s if s.endsWith(".proto") => MergeStrategy.last
+      case s if s.endsWith("reflection-config.json") => MergeStrategy.rename
       case s                         => old(s)
     }
   },
@@ -118,6 +116,7 @@ lazy val assemblySettings = Def.settings(
     }
     filtered :+ (fatJar -> (s"lib/\${fatJar.getName}"))
   },
+  scriptClasspath := Seq((assembly / jarName).value),
   Docker / packageName := s"gcr.io/\${gcpProject.value}/dataflow/templates/DataflowFlexTemplate",
   Docker / dockerCommands := Seq(
     Cmd(
