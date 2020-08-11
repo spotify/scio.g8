@@ -27,8 +27,7 @@ lazy val commonSettings = Def.settings(
   scalacOptions ++= Seq("-target:jvm-1.8",
                         "-deprecation",
                         "-feature",
-                        "-unchecked",
-                        "-Ymacro-annotations"),
+                        "-unchecked"),
   javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 )
 
