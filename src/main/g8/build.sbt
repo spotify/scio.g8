@@ -9,7 +9,7 @@ $endif$
 val scioVersion = "0.9.3"
 val beamVersion = "2.23.0"
 $if(FlinkRunner.truthy)$
-val flinkVersion = "1.9.1"
+val flinkVersion = "1.10.1"
 $endif$
 $if(SparkRunner.truthy)$
 val sparkVersion = "2.4.4"
@@ -50,7 +50,7 @@ lazy val root: Project = project
       "org.apache.beam" % "beam-runners-google-cloud-dataflow-java" % beamVersion,
       $endif$
       $if(FlinkRunner.truthy)$
-      "org.apache.beam" % "beam-runners-flink-1.9" % beamVersion excludeAll (
+      "org.apache.beam" % "beam-runners-flink-1.10" % beamVersion excludeAll (
         ExclusionRule("com.twitter", "chill_2.11"),
         ExclusionRule("org.apache.flink", "flink-clients_2.11"),
         ExclusionRule("org.apache.flink", "flink-runtime_2.11"),
