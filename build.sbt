@@ -1,6 +1,6 @@
 val scioVersion = "0.9.3"
 val beamVersion = "2.23.0"
-val flinkVersion = "1.10.1"
+val flinkVersion = "1.11.1"
 val sparkVersion = "2.4.6"
 
 lazy val root = project

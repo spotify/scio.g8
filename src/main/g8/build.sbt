@@ -9,7 +9,7 @@ $endif$
 val scioVersion = "0.9.3"
 val beamVersion = "2.23.0"
 $if(FlinkRunner.truthy)$
-val flinkVersion = "1.10.1"
+val flinkVersion = "1.11.1"
 $endif$
 $if(SparkRunner.truthy)$
 val sparkVersion = "2.4.6"
