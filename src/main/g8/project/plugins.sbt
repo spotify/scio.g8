@@ -1,4 +1,4 @@
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.7.3")
 $if(DataflowFlexTemplate.truthy) $
-addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.10")
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.15.0")
 $endif$
