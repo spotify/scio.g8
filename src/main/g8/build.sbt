@@ -12,7 +12,7 @@ $if(FlinkRunner.truthy)$
 val flinkVersion = "1.11.1"
 $endif$
 $if(SparkRunner.truthy)$
-val sparkVersion = "2.4.6"
+val sparkVersion = "3.0.0"
 $endif$
 
 lazy val commonSettings = Def.settings(
@@ -67,7 +67,7 @@ lazy val root: Project = project
       "org.apache.spark" %% "spark-core" % sparkVersion,
       "org.apache.spark" %% "spark-streaming" % sparkVersion,
       $endif$
-      "org.slf4j" % "slf4j-simple" % "1.7.25"
+      "org.slf4j" % "slf4j-simple" % "1.7.30"
     )
   )
   .enablePlugins(JavaAppPackaging)
