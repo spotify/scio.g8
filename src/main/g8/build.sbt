@@ -7,7 +7,7 @@ import complete.DefaultParsers._
 $endif$
 
 val scioVersion = "0.9.5"
-val beamVersion = "2.24.0"
+val beamVersion = "2.26.0"
 $if(FlinkRunner.truthy)$
 val flinkVersion = "1.10.2"
 $endif$
