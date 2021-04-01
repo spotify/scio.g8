@@ -6,7 +6,7 @@ import scala.sys.process._
 import complete.DefaultParsers._
 $endif$
 
-val scioVersion = "0.10.0"
+val scioVersion = "0.10.1"
 val beamVersion = "2.28.0"
 $if(FlinkRunner.truthy)$
 val flinkVersion = "1.12.2"
