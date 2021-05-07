@@ -9,13 +9,13 @@ jobs:
             project/giter8.sbt \
             project/build.properties > gha.cache.tmp
       - name: "~/.sbt cache"
-        uses: "actions/cache@v1"
+        uses: "actions/cache@v2.1.5"
         with:
           key: "${{ runner.os }}-sbt-${{ hashFiles('gha.cache.tmp') }}"
           path: "~/.sbt"
           restore-keys: sbt
       - name: "~/.cache/coursier cache"
-        uses: "actions/cache@v1"
+        uses: "actions/cache@v2.1.5"
         with:
           key: "${{ runner.os }}-coursier-${{ hashFiles('gha.cache.tmp') }}"
           path: "~/.cache/coursier"
