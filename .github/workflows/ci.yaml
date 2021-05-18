@@ -21,7 +21,7 @@ jobs:
           path: "~/.cache/coursier"
           restore-keys: coursier
       - name: java 11.0.5 setup
-        uses: "actions/setup-java@v1"
+        uses: "actions/setup-java@v2.1.0"
         with:
           architecture: x64
           java-package: jdk
