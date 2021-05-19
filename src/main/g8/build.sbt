@@ -20,7 +20,7 @@ lazy val commonSettings = Def.settings(
   // Semantic versioning http://semver.org/
   version := "0.1.0-SNAPSHOT",
   $if(FlinkRunner.truthy || SparkRunner.truthy)$
-  scalaVersion := "2.12.13",
+  scalaVersion := "2.13.6",
   $else$
   scalaVersion := "2.13.3",
   $endif$
