@@ -12,7 +12,7 @@ $if(FlinkRunner.truthy)$
 val flinkVersion = "1.12.3"
 $endif$
 $if(SparkRunner.truthy)$
-val sparkVersion = "2.4.8"
+val sparkVersion = "3.1.2"
 $endif$
 
 lazy val commonSettings = Def.settings(
