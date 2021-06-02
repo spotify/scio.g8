@@ -12,7 +12,7 @@ $if(FlinkRunner.truthy)$
 val flinkVersion = "1.12.4"
 $endif$
 $if(SparkRunner.truthy)$
-val sparkVersion = "2.4.8"
+val sparkVersion = "3.1.2"
 $endif$
 
 lazy val commonSettings = Def.settings(
@@ -20,7 +20,9 @@ lazy val commonSettings = Def.settings(
   // Semantic versioning http://semver.org/
   version := "0.1.0-SNAPSHOT",
   $if(FlinkRunner.truthy || SparkRunner.truthy)$
-  scalaVersion := "2.13.6",
+  // scala-steward:off
+  scalaVersion := "2.12.13"
+  // scala-steward:on
   $else$
   scalaVersion := "2.13.3",
   $endif$
