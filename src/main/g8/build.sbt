@@ -56,7 +56,8 @@ lazy val root: Project = project
         ExclusionRule("com.twitter", "chill_2.11"),
         ExclusionRule("org.apache.flink", "flink-clients_2.11"),
         ExclusionRule("org.apache.flink", "flink-runtime_2.11"),
-        ExclusionRule("org.apache.flink", "flink-streaming-java_2.11")
+        ExclusionRule("org.apache.flink", "flink-streaming-java_2.11"),
+        ExclusionRule("org.apache.flink", "flink-optimizer_2.11")
       ),
       "org.apache.flink" %% "flink-clients" % flinkVersion,
       "org.apache.flink" %% "flink-runtime" % flinkVersion,
