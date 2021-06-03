@@ -21,7 +21,7 @@ lazy val commonSettings = Def.settings(
   version := "0.1.0-SNAPSHOT",
   $if(FlinkRunner.truthy || SparkRunner.truthy)$
   // scala-steward:off
-  scalaVersion := "2.12.13"
+  scalaVersion := "2.12.13",
   // scala-steward:on
   $else$
   scalaVersion := "2.13.3",
