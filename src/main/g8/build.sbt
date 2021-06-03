@@ -9,10 +9,10 @@ $endif$
 val scioVersion = "0.10.3"
 val beamVersion = "2.29.0"
 $if(FlinkRunner.truthy)$
-val flinkVersion = "1.12.3"
+val flinkVersion = "1.12.4"
 $endif$
 $if(SparkRunner.truthy)$
-val sparkVersion = "2.4.8"
+val sparkVersion = "3.1.2"
 $endif$
 
 lazy val commonSettings = Def.settings(
