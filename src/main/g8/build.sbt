@@ -62,6 +62,7 @@ lazy val root: Project = project
       "org.apache.flink" %% "flink-clients" % flinkVersion,
       "org.apache.flink" %% "flink-runtime" % flinkVersion,
       "org.apache.flink" %% "flink-streaming-java" % flinkVersion,
+      "org.apache.flink" %% "flink-optimizer" % flinkVersion,
       $endif$
       $if(SparkRunner.truthy)$
       "org.apache.beam" % "beam-runners-spark" % beamVersion exclude (
