@@ -21,7 +21,7 @@ lazy val commonSettings = Def.settings(
   version := "0.1.0-SNAPSHOT",
   $if(FlinkRunner.truthy || SparkRunner.truthy)$
   // scala-steward:off
-  scalaVersion := "2.12.13"
+  scalaVersion := "2.12.13",
   // scala-steward:on
   $else$
   scalaVersion := "2.13.3",
@@ -56,7 +56,8 @@ lazy val root: Project = project
         ExclusionRule("com.twitter", "chill_2.11"),
         ExclusionRule("org.apache.flink", "flink-clients_2.11"),
         ExclusionRule("org.apache.flink", "flink-runtime_2.11"),
-        ExclusionRule("org.apache.flink", "flink-streaming-java_2.11")
+        ExclusionRule("org.apache.flink", "flink-streaming-java_2.11"),
+        ExclusionRule("org.apache.flink", "flink-optimizer_2.11")
       ),
       "org.apache.flink" %% "flink-clients" % flinkVersion,
       "org.apache.flink" %% "flink-runtime" % flinkVersion,
