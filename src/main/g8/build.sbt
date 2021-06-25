@@ -6,8 +6,8 @@ import scala.sys.process._
 import complete.DefaultParsers._
 $endif$
 
-val scioVersion = "0.10.3"
-val beamVersion = "2.29.0"
+val scioVersion = "0.10.4"
+val beamVersion = "2.30.0"
 $if(FlinkRunner.truthy)$
 val flinkVersion = "1.13.1"
 $endif$
@@ -21,7 +21,7 @@ lazy val commonSettings = Def.settings(
   version := "0.1.0-SNAPSHOT",
   $if(FlinkRunner.truthy || SparkRunner.truthy)$
   // scala-steward:off
-  scalaVersion := "2.12.13"
+  scalaVersion := "2.12.13",
   // scala-steward:on
   $else$
   scalaVersion := "2.13.3",
@@ -56,11 +56,13 @@ lazy val root: Project = project
         ExclusionRule("com.twitter", "chill_2.11"),
         ExclusionRule("org.apache.flink", "flink-clients_2.11"),
         ExclusionRule("org.apache.flink", "flink-runtime_2.11"),
-        ExclusionRule("org.apache.flink", "flink-streaming-java_2.11")
+        ExclusionRule("org.apache.flink", "flink-streaming-java_2.11"),
+        ExclusionRule("org.apache.flink", "flink-optimizer_2.11")
       ),
       "org.apache.flink" %% "flink-clients" % flinkVersion,
       "org.apache.flink" %% "flink-runtime" % flinkVersion,
       "org.apache.flink" %% "flink-streaming-java" % flinkVersion,
+      "org.apache.flink" %% "flink-optimizer" % flinkVersion,
       $endif$
       $if(SparkRunner.truthy)$
       "org.apache.beam" % "beam-runners-spark" % beamVersion exclude (
@@ -69,7 +71,7 @@ lazy val root: Project = project
       "org.apache.spark" %% "spark-core" % sparkVersion,
       "org.apache.spark" %% "spark-streaming" % sparkVersion,
       $endif$
-      "org.slf4j" % "slf4j-simple" % "1.7.30"
+      "org.slf4j" % "slf4j-simple" % "1.7.31"
     )
   )
   .enablePlugins(JavaAppPackaging)
