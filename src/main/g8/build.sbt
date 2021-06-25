@@ -6,7 +6,7 @@ import scala.sys.process._
 import complete.DefaultParsers._
 $endif$
 
-val scioVersion = "0.10.3"
+val scioVersion = "0.10.4"
 val beamVersion = "2.30.0"
 $if(FlinkRunner.truthy)$
 val flinkVersion = "1.12.4"
@@ -71,7 +71,7 @@ lazy val root: Project = project
       "org.apache.spark" %% "spark-core" % sparkVersion,
       "org.apache.spark" %% "spark-streaming" % sparkVersion,
       $endif$
-      "org.slf4j" % "slf4j-simple" % "1.7.30"
+      "org.slf4j" % "slf4j-simple" % "1.7.31"
     )
   )
   .enablePlugins(JavaAppPackaging)
