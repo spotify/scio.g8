@@ -26,6 +26,9 @@ lazy val commonSettings = Def.settings(
   $else$
   scalaVersion := "2.13.3",
   $endif$
+  $if(DataflowRunner.truthy)$
+  resolvers += "confluent" at "https://packages.confluent.io/maven/",
+  $endif$
   scalacOptions ++= Seq("-target:jvm-1.8",
                         "-deprecation",
                         "-feature",
