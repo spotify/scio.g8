@@ -6,8 +6,8 @@ import scala.sys.process._
 import complete.DefaultParsers._
 $endif$
 
-val scioVersion = "0.10.4"
-val beamVersion = "2.30.0"
+val scioVersion = "0.11.0"
+val beamVersion = "2.32.0"
 $if(FlinkRunner.truthy)$
 val flinkVersion = "1.13.2"
 $endif$
@@ -25,6 +25,9 @@ lazy val commonSettings = Def.settings(
   // scala-steward:on
   $else$
   scalaVersion := "2.13.3",
+  $endif$
+  $if(DataflowRunner.truthy)$
+  resolvers += "confluent" at "https://packages.confluent.io/maven/",
   $endif$
   scalacOptions ++= Seq("-target:jvm-1.8",
                         "-deprecation",
