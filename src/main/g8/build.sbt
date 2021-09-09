@@ -122,7 +122,7 @@ lazy val assemblySettings = Def.settings(
     }
     filtered :+ (fatJar -> (s"lib/\${fatJar.getName}"))
   },
-  scriptClasspath := Seq((assembly / jarName).value),
+  scriptClasspath := Seq((assembly / assemblyJarName).value),
   Docker / packageName := s"gcr.io/\${gcpProject.value}/dataflow/templates/DataflowFlexTemplate",
   Docker / dockerCommands := Seq(
     Cmd(
