@@ -33,7 +33,7 @@ lazy val commonSettings = Def.settings(
                         "-deprecation",
                         "-feature",
                         "-unchecked",
-                        "-Ymacro.annotations"),
+                        "-Ymacro-annotations"),
   javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 )
 
