@@ -32,7 +32,8 @@ lazy val commonSettings = Def.settings(
   scalacOptions ++= Seq("-target:jvm-1.8",
                         "-deprecation",
                         "-feature",
-                        "-unchecked"),
+                        "-unchecked",
+                        "-Ymacro.annotations"),
   javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 )
 
@@ -47,6 +48,7 @@ lazy val root: Project = project
     description := "$name$",
     publish / skip := true,
     run / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
+    run / fork := true,
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
       "com.spotify" %% "scio-test" % scioVersion % Test,
