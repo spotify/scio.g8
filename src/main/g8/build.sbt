@@ -29,11 +29,17 @@ lazy val commonSettings = Def.settings(
   $if(DataflowRunner.truthy)$
   resolvers += "confluent" at "https://packages.confluent.io/maven/",
   $endif$
+  $if(FlinkRunner.truthy || SparkRunner.truthy)$
+  resolvers += Resolver.sonatypeRepo("releases")
+  $endif$
   scalacOptions ++= Seq("-target:jvm-1.8",
                         "-deprecation",
                         "-feature",
                         "-unchecked",
-                        "-Ymacro-annotations"),
+                        $if(!(FlinkRunner.truthy || SparkRunner.truthy))$
+                        "-Ymacro-annotations"
+                        $endif$
+                        ),
   javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 )
 
@@ -49,6 +55,9 @@ lazy val root: Project = project
     publish / skip := true,
     run / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
     run / fork := true,
+    $if(FlinkRunner.truthy || SparkRunner.truthy)$
+    addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full),
+    $endif$
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
       "com.spotify" %% "scio-test" % scioVersion % Test,
