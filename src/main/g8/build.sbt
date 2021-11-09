@@ -56,7 +56,7 @@ lazy val root: Project = project
     run / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
     run / fork := true,
     $if(FlinkRunner.truthy || SparkRunner.truthy)$
-    addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full),
+    addCompilerPlugin("org.scalamacros" % "paradise_2.12.13" % "2.1.1"),
     $endif$
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
@@ -66,7 +66,7 @@ lazy val root: Project = project
       "org.apache.beam" % "beam-runners-google-cloud-dataflow-java" % beamVersion,
       $endif$
       $if(FlinkRunner.truthy)$
-      "org.apache.beam" % "beam-runners-flink-1.10" % beamVersion excludeAll (
+      "org.apache.beam" % "beam-runners-flink-1.13" % beamVersion excludeAll (
         ExclusionRule("com.twitter", "chill_2.11"),
         ExclusionRule("org.apache.flink", "flink-clients_2.11"),
         ExclusionRule("org.apache.flink", "flink-runtime_2.11"),
