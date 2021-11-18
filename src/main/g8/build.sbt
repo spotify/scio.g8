@@ -29,9 +29,6 @@ lazy val commonSettings = Def.settings(
   $if(DataflowRunner.truthy)$
   resolvers += "confluent" at "https://packages.confluent.io/maven/",
   $endif$
-  $if(FlinkRunner.truthy || SparkRunner.truthy)$
-  resolvers += Resolver.sonatypeRepo("releases"),
-  $endif$
   scalacOptions ++= Seq("-target:jvm-1.8",
                         "-deprecation",
                         "-feature",
