@@ -32,7 +32,11 @@ lazy val commonSettings = Def.settings(
   scalacOptions ++= Seq("-target:jvm-1.8",
                         "-deprecation",
                         "-feature",
-                        "-unchecked"),
+                        "-unchecked",
+                        $if(!FlinkRunner.truthy && !SparkRunner.truthy)$
+                        "-Ymacro-annotations",
+                        $endif$
+                        ),
   javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 )
 
@@ -47,6 +51,10 @@ lazy val root: Project = project
     description := "$name$",
     publish / skip := true,
     run / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat,
+    run / fork := true,
+    $if(FlinkRunner.truthy || SparkRunner.truthy)$
+    addCompilerPlugin("org.scalamacros" % "paradise_2.12.13" % "2.1.1"),
+    $endif$
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
       "com.spotify" %% "scio-test" % scioVersion % Test,
@@ -55,7 +63,7 @@ lazy val root: Project = project
       "org.apache.beam" % "beam-runners-google-cloud-dataflow-java" % beamVersion,
       $endif$
       $if(FlinkRunner.truthy)$
-      "org.apache.beam" % "beam-runners-flink-1.10" % beamVersion excludeAll (
+      "org.apache.beam" % "beam-runners-flink-1.13" % beamVersion excludeAll (
         ExclusionRule("com.twitter", "chill_2.11"),
         ExclusionRule("org.apache.flink", "flink-clients_2.11"),
         ExclusionRule("org.apache.flink", "flink-runtime_2.11"),
