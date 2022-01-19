@@ -1,4 +1,4 @@
-val scioVersion = "0.11.2"
+val scioVersion = "0.11.4"
 val beamVersion = "2.35.0"
 val flinkVersion = "1.13.5"
 val sparkVersion = "3.2.0"
@@ -25,6 +25,6 @@ lazy val root = project
       "org.apache.beam" % "beam-runners-direct-java" % beamVersion,
       "org.apache.flink" %% "flink-runtime" % flinkVersion,
       "org.apache.spark" %% "spark-core" % sparkVersion,
-      "org.slf4j" % "slf4j-simple" % "1.7.32"
+      "org.slf4j" % "slf4j-simple" % "1.7.33"
     )
   )
