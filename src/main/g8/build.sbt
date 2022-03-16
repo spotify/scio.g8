@@ -9,10 +9,10 @@ $endif$
 val scioVersion = "0.11.4"
 val beamVersion = "2.35.0"
 $if(FlinkRunner.truthy)$
-val flinkVersion = "1.13.5"
+val flinkVersion = "1.13.6"
 $endif$
 $if(SparkRunner.truthy)$
-val sparkVersion = "3.2.0"
+val sparkVersion = "3.2.1"
 $endif$
 
 lazy val commonSettings = Def.settings(
@@ -82,7 +82,7 @@ lazy val root: Project = project
       "org.apache.spark" %% "spark-core" % sparkVersion,
       "org.apache.spark" %% "spark-streaming" % sparkVersion,
       $endif$
-      "org.slf4j" % "slf4j-simple" % "1.7.33"
+      "org.slf4j" % "slf4j-simple" % "1.7.36"
     )
   )
   .enablePlugins(JavaAppPackaging)
