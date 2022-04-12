@@ -10,7 +10,7 @@ jobs:
       - name: cache SBT
         uses: coursier/cache-action@v6
       - name: java setup
-        uses: "actions/setup-java@v2"
+        uses: "actions/setup-java@v3"
         with:
           distribution: adopt
           java-version: "11"
