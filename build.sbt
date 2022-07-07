@@ -1,7 +1,7 @@
 val scioVersion = "0.11.7"
 val beamVersion = "2.38.0"
 val flinkVersion = "1.13.6"
-val sparkVersion = "3.2.1"
+val sparkVersion = "3.3.0"
 
 lazy val root = project
   .in(file("."))
