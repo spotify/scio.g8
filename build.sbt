@@ -25,6 +25,6 @@ lazy val root = project
       "org.apache.beam" % "beam-runners-direct-java" % beamVersion,
       "org.apache.flink" %% "flink-runtime" % flinkVersion,
       "org.apache.spark" %% "spark-core" % sparkVersion,
-      "org.slf4j" % "slf4j-simple" % "1.7.36"
+      "org.slf4j" % "slf4j-simple" % "2.0.3"
     )
   )
