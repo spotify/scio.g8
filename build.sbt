@@ -1,4 +1,4 @@
-val scioVersion = "0.11.14"
+val scioVersion = "0.12.4"
 val beamVersion = "2.38.0"
 val flinkVersion = "1.13.6"
 val sparkVersion = "3.1.2"
