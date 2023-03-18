@@ -82,7 +82,7 @@ lazy val root: Project = project
       "org.apache.spark" %% "spark-core" % sparkVersion,
       "org.apache.spark" %% "spark-streaming" % sparkVersion,
       $endif$
-      "org.slf4j" % "slf4j-simple" % "1.7.36"
+      "org.slf4j" % "slf4j-simple" % "2.0.7"
     )
   )
   .enablePlugins(JavaAppPackaging)
