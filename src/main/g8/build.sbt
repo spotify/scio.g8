@@ -104,8 +104,8 @@ lazy val repl: Project = project
 $if(DataflowFlexTemplate.truthy)$
 lazy val gcpProject = settingKey[String]("GCP Project")
 lazy val gcpRegion = settingKey[String]("GCP region")
-lazy val createFlextTemplate = inputKey[Unit]("create DataflowFlexTemplate")
-lazy val runFlextTemplate = inputKey[Unit]("run DataflowFlexTemplate")
+lazy val createFlexTemplate = inputKey[Unit]("create DataflowFlexTemplate")
+lazy val runFlexTemplate = inputKey[Unit]("run DataflowFlexTemplate")
 
 lazy val assemblySettings = Def.settings(
   gcpProject := "",
@@ -153,7 +153,7 @@ lazy val assemblySettings = Def.settings(
       "\${FLEX_TEMPLATE_JAVA_CLASSPATH}"
     )
   ),
-  createFlextTemplate := {
+  createFlexTemplate := {
     val _ = (Docker / publish).value
     s"""gcloud beta dataflow DataflowFlexTemplate build 
           gs://\${gcpProject.value}/dataflow/templates/\${name.value}.json
@@ -161,7 +161,7 @@ lazy val assemblySettings = Def.settings(
           --sdk-language JAVA
           --metadata-file metadata.json""" !
   },
-  runFlextTemplate := {
+  runFlexTemplate := {
     val parameters = spaceDelimited("<arg>").parsed
     s"""gcloud beta dataflow DataflowFlexTemplate run \${name.value}
     	--template-file-gcs-location gs://\${gcpProject.value}/dataflow/templates/\${name.value}.json

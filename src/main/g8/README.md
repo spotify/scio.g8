@@ -45,7 +45,7 @@ sbt repl/run
 $if(DataflowFlexTemplate.truthy)$
 ### Dataflow `Flex Template` usage
 
-#### Google Cloud PLatform settings
+#### Google Cloud Platform settings
 
 ```sbt
 set gcpProject := "<YOUR PROJECT>"
