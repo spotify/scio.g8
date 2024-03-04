@@ -20,8 +20,8 @@ $endif$
 $if(DataflowFlexTemplate.truthy)$
 lazy val gcpProject = settingKey[String]("GCP Project")
 lazy val gcpRegion = settingKey[String]("GCP region")
-lazy val gcpDataflowFlexPath = settingKey[String]("GCS path to dataflow flext template")
-lazy val gcpDataflowFlexTemplateBuiild = inputKey[Unit]("create dataflow flex-template")
+lazy val gcpDataflowFlexBucket = settingKey[String]("GCS bucket for the flext template")
+lazy val gcpDataflowFlexTemplateBuild = inputKey[Unit]("create dataflow flex-template")
 lazy val gcpDataflowFlexTemplateRun = inputKey[Unit]("run dataflow flex-template")
 $endif$
 
@@ -75,26 +75,40 @@ lazy val root: Project = project
     ),
     $if(DataflowFlexTemplate.truthy)$
     Docker / packageName := s"gcr.io/\${gcpProject.value}/dataflow/templates/\${name.value}",
+    Docker / daemonUserUid := None,
+    Docker / daemonUser := "root",
+    dockerPermissionStrategy := DockerPermissionStrategy.None,
     dockerBaseImage := "gcr.io/dataflow-templates-base/java11-template-launcher-base:latest",
-    dockerEntrypoint := Seq("/opt/google/dataflow/java_template_launcher"),
-    dockerCommands ++= Seq(
-      Cmd(
-        "ENV",
-        "FLEX_TEMPLATE_JAVA_MAIN_CLASS",
-        (Compile / mainClass).value.get
-      ),
-      Cmd(
-        "ENV",
-        "FLEX_TEMPLATE_JAVA_CLASSPATH",
-        (Universal / mappings).value.collect {case (_, dest) if dest.startsWith("lib/") => dest  }.mkString(":")
+    dockerCommands := {
+      // keep default from base image
+      val filteredCommands = dockerCommands.value.filterNot {
+        case Cmd("USER", _*) => true
+        case Cmd("WORKDIR", _*) => true
+        case ExecCmd("ENTRYPOINT", _*) => true
+        case ExecCmd("CMD", _*) => true
+        case _ => false
+      }
+      // add required ENV commands
+      val envCommands = Seq(
+        Cmd(
+          "ENV",
+          "FLEX_TEMPLATE_JAVA_MAIN_CLASS",
+          (Compile / mainClass).value.get
+        ),
+        Cmd(
+          "ENV",
+          "FLEX_TEMPLATE_JAVA_CLASSPATH",
+          (Docker / defaultLinuxInstallLocation).value + "/lib/*"
+        )
       )
-    ),
-    gcpProject := "",
-    gcpRegion := "",
-    gcpDataflowFlexPath := "",
-    gcpDataflowFlexTemplateBuiild := {
+      filteredCommands ++ envCommands
+    },
+    gcpProject := "", // TODO
+    gcpRegion := "", // TODO
+    gcpDataflowFlexBucket := "", // TODO
+    gcpDataflowFlexTemplateBuild := {
       (Docker / publish).value
-      s"""gcloud dataflow flex-template build \${gcpDataflowFlexPath.value}/templates/\${name.value}.json
+      s"""gcloud dataflow flex-template build gs://\${gcpDataflowFlexBucket.value}/dataflow/templates/\${name.value}.json
          |--image \${dockerAlias.value}
          |--sdk-language JAVA
          |--metadata-file metadata.json""".stripMargin !
@@ -104,9 +118,9 @@ lazy val root: Project = project
       s"""gcloud dataflow flex-template run \${name.value}
          |--project=\${gcpProject.value}
          |--region=\${gcpRegion.value}
-         |--temp-location=\${gcpDataflowFlexPath.value}/temp
-         |--staging-location=\${gcpDataflowFlexPath.value}/staging
-         |--template-file-gcs-location \${gcpDataflowFlexPath.value}/templates/\${name.value}.json
+         |--temp-location=gs://\${gcpDataflowFlexBucket.value}/dataflow/temp
+         |--staging-location=gs://\${gcpDataflowFlexBucket.value}/dataflow/staging
+         |--template-file-gcs-location=gs://\${gcpDataflowFlexBucket.value}/dataflow/templates/\${name.value}.json
          |--parameters \${parameters.mkString(",")}""".stripMargin !
     }
     $endif$
