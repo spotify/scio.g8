@@ -4,7 +4,9 @@ import com.spotify.scio._
 
 /*
 sbt "runMain [PACKAGE].WordCount
-  --project=[PROJECT] --runner=DataflowRunner --zone=[ZONE]
+  --project=[PROJECT]
+  --region=[REGION]
+  --runner=[RUNNER]
   --input=gs://dataflow-samples/shakespeare/kinglear.txt
   --output=gs://[BUCKET]/[PATH]/wordcount"
 */
@@ -24,6 +26,11 @@ object WordCount {
       .map(t => t._1 + ": " + t._2)
       .saveAsTextFile(output)
 
+
+    $if(DataflowFlexTemplate.truthy)$
+    sc.run()
+    $else$
     val result = sc.run().waitUntilFinish()
+    $endif$
   }
 }
