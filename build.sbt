@@ -1,30 +1,27 @@
-val scioVersion = "0.12.7"
-val beamVersion = "2.38.0"
-val flinkVersion = "1.13.6"
-val sparkVersion = "3.1.2"
+// see https://github.com/spotify/scio/blob/v0.14.2/build.sbt
+val scioVersion = "0.14.2"
+val beamVersion = "2.54.0"
+val slf4jVersion = "1.7.30"
+val flinkVersion = "1.16.0"
+val sparkVersion = "3.5.0"
 
 lazy val root = project
   .in(file("."))
-  .enablePlugins(ScriptedPlugin)
   .settings(
     name := "scio.g8",
     Test / test := {
       val _ = (Test / g8Test).toTask("").value
     },
+    Test / g8 / g8Properties ++= Map(
+      "DataflowRunner" -> "yes",
+      "FlinkRunner" -> "yes",
+      "SparkRunner" -> "yes",
+      "DataflowFlexTemplate" -> "yes"
+    ),
     scriptedLaunchOpts ++= List(
-      "-Xms1024m",
-      "-Xmx1024m",
-      "-XX:ReservedCodeCacheSize=128m",
-      "-XX:MaxPermSize=256m",
-      "-Xss2m",
+      "-Xms1G",
+      "-Xmx4G",
       "-Dfile.encoding=UTF-8"
     ),
-    // Get scala-steward to update template dependencies
-    libraryDependencies ++= Seq(
-      "com.spotify" %% "scio-core" % scioVersion,
-      "org.apache.beam" % "beam-runners-direct-java" % beamVersion,
-      "org.apache.flink" %% "flink-runtime" % flinkVersion,
-      "org.apache.spark" %% "spark-core" % sparkVersion,
-      "org.slf4j" % "slf4j-simple" % "1.7.36"
-    )
+    scriptedBufferLog := false,
   )
