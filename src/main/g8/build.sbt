@@ -7,11 +7,11 @@ import complete.DefaultParsers._
 $endif$
 
 // see https://github.com/spotify/scio/blob/v0.14.2/build.sbt
-val scioVersion = "0.14.2"
-val beamVersion = "2.54.0"
+val scioVersion = "0.14.5"
+val beamVersion = "2.56.0"
 val slf4jVersion = "1.7.30"
 $if(FlinkRunner.truthy)$
-val flinkVersion = "1.16.0"
+val flinkVersion = "1.17.0"
 $endif$
 $if(SparkRunner.truthy)$
 val sparkVersion = "3.5.0"
@@ -29,7 +29,7 @@ lazy val commonSettings = Def.settings(
   organization := "$organization$",
   // Semantic versioning http://semver.org/
   version := "0.1.0-SNAPSHOT",
-  scalaVersion := "2.13.13",
+  scalaVersion := "2.13.14",
   scalacOptions ++= Seq(
     "-release", "8",
     "-deprecation",
@@ -61,7 +61,7 @@ lazy val root: Project = project
       "org.apache.beam" % "beam-runners-google-cloud-dataflow-java" % beamVersion  % Runtime,
       $endif$
       $if(FlinkRunner.truthy)$
-      "org.apache.beam" % "beam-runners-flink-1.16" % beamVersion % Runtime,
+      "org.apache.beam" % "beam-runners-flink-1.17" % beamVersion % Runtime,
       "org.apache.flink" % "flink-clients" % flinkVersion % Runtime,
       "org.apache.flink" % "flink-streaming-java" % flinkVersion % Runtime,
       $endif$
@@ -70,7 +70,7 @@ lazy val root: Project = project
       "org.apache.spark" %% "spark-core" % sparkVersion % Runtime,
       "org.apache.spark" %% "spark-streaming" % sparkVersion % Runtime,
       $endif$
-      "com.spotify" %% "scio-test" % scioVersion % Test,
+      "com.spotify" %% "scio-test-core" % scioVersion % Test,
       "org.slf4j" % "slf4j-simple" % slf4jVersion % Test
     ),
     $if(DataflowFlexTemplate.truthy)$
