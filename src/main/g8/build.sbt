@@ -15,6 +15,7 @@ val flinkVersion = "1.17.0"
 $endif$
 $if(SparkRunner.truthy)$
 val sparkVersion = "3.5.0"
+val jacksonVersion = "2.16.0"
 $endif$
 
 $if(DataflowFlexTemplate.truthy)$
@@ -73,6 +74,15 @@ lazy val root: Project = project
       "com.spotify" %% "scio-test-core" % scioVersion % Test,
       "org.slf4j" % "slf4j-simple" % slf4jVersion % Test
     ),
+    $if(SparkRunner.truthy)$
+    // see https://github.com/apache/beam/issues/18022
+    dependencyOverrides ++= Seq(
+      "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
+      "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
+      "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
+      "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
+    ),
+    $endif$
     $if(DataflowFlexTemplate.truthy)$
     Docker / packageName := s"gcr.io/\${gcpProject.value}/dataflow/templates/\${name.value}",
     Docker / daemonUserUid := None,
