@@ -30,7 +30,7 @@ object WordCount {
     $if(DataflowFlexTemplate.truthy)$
     sc.run()
     $else$
-    val result = sc.run().waitUntilFinish()
+    val result = sc.run().waitUntilDone()
     $endif$
   }
 }
