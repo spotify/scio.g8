@@ -10,11 +10,11 @@ A [Giter8][g8] template for [Scio][scio] that includes a simple [WordCount][Word
 
 ## Running
 
-1. Download and install the [Java Development Kit (JDK)](https://adoptopenjdk.net/index.html) version 8 or 11.
+1. Download and install the [Java Development Kit (JDK)](https://adoptopenjdk.net/index.html) version 8 or higher
 2. [Install sbt](http://www.scala-sbt.org/1.x/docs/Setup.html)
 3. `sbt new spotify/scio.g8`
-4. `sbt stage`
-5. `target/universal/stage/bin/word-count --output=wc`
+4. `cd <your-project-name>`
+5. `sbt run --runner=$runner --output=wc`
 
 ⚠️ Check your project `README.md` for further details ⚠️
 
