@@ -54,6 +54,7 @@ lazy val root: Project = project
     description := "$name$",
     publish / skip := true,
     fork := true,
+    run / outputStrategy := Some(OutputStrategy.StdoutOutput),
     libraryDependencies ++= Seq(
       "com.spotify" %% "scio-core" % scioVersion,
       "org.slf4j" % "slf4j-api" % slf4jVersion,
@@ -70,6 +71,7 @@ lazy val root: Project = project
       "org.apache.spark" %% "spark-core" % sparkVersion % Runtime,
       "org.apache.spark" %% "spark-streaming" % sparkVersion % Runtime,
       $endif$
+      "org.apache.beam" % "beam-runners-direct-java" % beamVersion % Test,
       "com.spotify" %% "scio-test" % scioVersion % Test,
       "org.slf4j" % "slf4j-simple" % slf4jVersion % Test
     ),

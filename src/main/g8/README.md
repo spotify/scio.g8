@@ -10,20 +10,12 @@ This project comes with number of preconfigured features, including:
 
 ### Running
 
-* `sbt stage`
-* `target/universal/stage/bin/word-count --output=wc`
+The templates ships with beam `DirectRunner` in the `Test` scope. You can run locally with
+`sbt Test/runMain example.WordCount --runner=DirectRunner --output=wc`
 
-### Packaging
-
-This template comes with [sbt-native-packager](https://sbt-native-packager.readthedocs.io) and it allows you to build **zips**, **docker** images, etc. Have a look at the documentation for more details.
-
-```bash
-sbt
-# create a zip file
-> universal:packageBin
-# publish a docker image to your local registry
-> docker:publishLocal
-```
+Run with the selected runner
+`sbt runMain example.WordCount --runner=<runner> --output=<path>`
+you may have to provide options depending on the runner
 
 ### Testing
 
@@ -44,6 +36,18 @@ sbt repl/run
 
 $if(DataflowFlexTemplate.truthy)$
 ### Dataflow `Flex Template` usage
+
+#### Packaging
+
+This template comes with [sbt-native-packager](https://sbt-native-packager.readthedocs.io) and it allows you to build **zips**, **docker** images, etc. Have a look at the documentation for more details.
+
+```bash
+sbt
+# create a zip file
+> Universal/packageBin
+# publish a docker image to your local registry
+> Docker/publishLocal
+```
 
 #### Google Cloud Platform settings
 
