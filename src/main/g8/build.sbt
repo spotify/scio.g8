@@ -1,21 +1,39 @@
 import sbt._
 import Keys._
+import com.here.bom.Bom
 $if(DataflowFlexTemplate.truthy)$
 import com.typesafe.sbt.packager.docker._
 import scala.sys.process._
 import complete.DefaultParsers._
 $endif$
 
+
 // see https://github.com/spotify/scio/blob/v0.14.2/build.sbt
-val scioVersion = "0.14.2"
-val beamVersion = "2.54.0"
+val scioVersion = "0.14.8"
+val beamVersion = "2.59.0"
+
+val gcpLibrariesVersion = "26.39.0"
+val guavaVersion = "33.1.0-jre"
+val jacksonVersion = "2.15.4"
+val magnolifyVersion = "0.7.4"
+val nettyVersion = "4.1.100.Final"
 val slf4jVersion = "1.7.30"
+
 $if(FlinkRunner.truthy)$
-val flinkVersion = "1.16.0"
+val flinkVersion = "1.18.0"
 $endif$
 $if(SparkRunner.truthy)$
 val sparkVersion = "3.5.0"
 $endif$
+
+
+lazy val beamBom = Bom("org.apache.beam" % "beam-sdks-java-bom" % beamVersion)
+lazy val gcpBom = Bom("com.google.cloud" % "libraries-bom" % gcpLibrariesVersion)
+lazy val guavaBom = Bom("com.google.guava" % "guava-bom" % guavaVersion)
+lazy val jacksonBom = Bom("com.fasterxml.jackson" % "jackson-bom" % jacksonVersion)
+lazy val magnolifyBom = Bom("com.spotify" % "magnolify-bom" % magnolifyVersion)
+lazy val nettyBom = Bom("io.netty" % "netty-bom" % nettyVersion)
+lazy val scioBom = Bom("com.spotify" % "scio-bom" % scioVersion)
 
 $if(DataflowFlexTemplate.truthy)$
 lazy val gcpProject = settingKey[String]("GCP Project")
@@ -25,11 +43,28 @@ lazy val gcpDataflowFlexTemplateBuild = inputKey[Unit]("create dataflow flex-tem
 lazy val gcpDataflowFlexTemplateRun = inputKey[Unit]("run dataflow flex-template")
 $endif$
 
-lazy val commonSettings = Def.settings(
+
+val bomSettings = Def.settings(
+  beamBom,
+  gcpBom,
+  guavaBom,
+  jacksonBom,
+  magnolifyBom,
+  nettyBom,
+  dependencyOverrides ++=
+    beamBom.key.value.bomDependencies ++
+      gcpBom.key.value.bomDependencies ++
+      guavaBom.key.value.bomDependencies ++
+      jacksonBom.key.value.bomDependencies ++
+      magnolifyBom.key.value.bomDependencies ++
+      nettyBom.key.value.bomDependencies
+)
+
+lazy val commonSettings = bomSettings ++ Def.settings(
   organization := "$organization$",
   // Semantic versioning http://semver.org/
   version := "0.1.0-SNAPSHOT",
-  scalaVersion := "2.13.13",
+  scalaVersion := "2.13.15",
   scalacOptions ++= Seq(
     "-release", "8",
     "-deprecation",

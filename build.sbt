@@ -1,10 +1,3 @@
-// see https://github.com/spotify/scio/blob/v0.14.2/build.sbt
-val scioVersion = "0.14.2"
-val beamVersion = "2.54.0"
-val slf4jVersion = "1.7.30"
-val flinkVersion = "1.16.0"
-val sparkVersion = "3.5.0"
-
 lazy val root = project
   .in(file("."))
   .settings(
