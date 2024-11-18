@@ -8,17 +8,18 @@ import complete.DefaultParsers._
 $endif$
 
 
-// see https://github.com/spotify/scio/blob/v0.14.2/build.sbt
-val scioVersion = "0.14.8"
-val beamVersion = "2.59.0"
+// see https://github.com/spotify/scio/blob/v0.14.9/build.sbt
+val scioVersion = "0.14.9"
+val beamVersion = "2.60.0"
 
-val gcpLibrariesVersion = "26.39.0"
 val guavaVersion = "33.1.0-jre"
 val jacksonVersion = "2.15.4"
 val magnolifyVersion = "0.7.4"
 val nettyVersion = "4.1.100.Final"
 val slf4jVersion = "1.7.30"
-
+$if(DataflowRunner.truthy || DataflowFlexTemplate.truthy)$
+val gcpLibrariesVersion = "26.45.0"
+$endif$
 $if(FlinkRunner.truthy)$
 val flinkVersion = "1.18.0"
 $endif$
@@ -27,8 +28,10 @@ val sparkVersion = "3.5.0"
 $endif$
 
 
-lazy val beamBom = Bom("org.apache.beam" % "beam-sdks-java-bom" % beamVersion)
+$if(DataflowRunner.truthy || DataflowFlexTemplate.truthy)$
 lazy val gcpBom = Bom("com.google.cloud" % "libraries-bom" % gcpLibrariesVersion)
+$endif$
+lazy val beamBom = Bom("org.apache.beam" % "beam-sdks-java-bom" % beamVersion)
 lazy val guavaBom = Bom("com.google.guava" % "guava-bom" % guavaVersion)
 lazy val jacksonBom = Bom("com.fasterxml.jackson" % "jackson-bom" % jacksonVersion)
 lazy val magnolifyBom = Bom("com.spotify" % "magnolify-bom" % magnolifyVersion)
@@ -45,15 +48,19 @@ $endif$
 
 
 val bomSettings = Def.settings(
-  beamBom,
+  $if(DataflowRunner.truthy || DataflowFlexTemplate.truthy)$
   gcpBom,
+  $endif$
+  beamBom,
   guavaBom,
   jacksonBom,
   magnolifyBom,
   nettyBom,
   dependencyOverrides ++=
+    $if(DataflowRunner.truthy || DataflowFlexTemplate.truthy)$
+    gcpBom.key.value.bomDependencies ++
+    $endif$
     beamBom.key.value.bomDependencies ++
-      gcpBom.key.value.bomDependencies ++
       guavaBom.key.value.bomDependencies ++
       jacksonBom.key.value.bomDependencies ++
       magnolifyBom.key.value.bomDependencies ++
