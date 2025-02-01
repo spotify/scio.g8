@@ -9,22 +9,22 @@ $endif$
 
 
 // see https://github.com/spotify/scio/blob/v0.14.9/build.sbt
-val scioVersion = "0.14.9"
-val beamVersion = "2.60.0"
+val scioVersion = "0.14.11"
+val beamVersion = "2.62.0"
 
 val guavaVersion = "33.1.0-jre"
 val jacksonVersion = "2.15.4"
 val magnolifyVersion = "0.7.4"
-val nettyVersion = "4.1.100.Final"
+val nettyVersion = "4.1.110.Final"
 val slf4jVersion = "1.7.30"
 $if(DataflowRunner.truthy || DataflowFlexTemplate.truthy)$
-val gcpLibrariesVersion = "26.45.0"
+val gcpLibrariesVersion = "26.49.0"
 $endif$
 $if(FlinkRunner.truthy)$
-val flinkVersion = "1.18.0"
+val flinkVersion = "1.19.0"
 $endif$
 $if(SparkRunner.truthy)$
-val sparkVersion = "3.5.0"
+val sparkVersion = "3.5.4"
 $endif$
 
 
