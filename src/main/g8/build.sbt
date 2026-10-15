@@ -8,20 +8,20 @@ import complete.DefaultParsers._
 $endif$
 
 
-// see https://github.com/spotify/scio/blob/v0.14.9/build.sbt
+// see https://github.com/spotify/scio/blob/v0.15.10/build.sbt
 val scioVersion = "0.15.10"
 val beamVersion = "2.76.0"
 
 val guavaVersion = "33.1.0-jre"
-val jacksonVersion = "2.15.4"
-val magnolifyVersion = "0.7.4"
-val nettyVersion = "4.1.100.Final"
-val slf4jVersion = "1.7.30"
+val jacksonVersion = "2.18.8"
+val magnolifyVersion = "0.9.8"
+val nettyVersion = "4.1.132.Final"
+val slf4jVersion = "2.0.16"
 $if(DataflowRunner.truthy || DataflowFlexTemplate.truthy)$
-val gcpLibrariesVersion = "26.45.0"
+val gcpLibrariesVersion = "26.85.0"
 $endif$
 $if(FlinkRunner.truthy)$
-val flinkVersion = "1.18.0"
+val flinkVersion = "1.19.0"
 $endif$
 $if(SparkRunner.truthy)$
 val sparkVersion = "3.5.0"
@@ -71,15 +71,15 @@ lazy val commonSettings = bomSettings ++ Def.settings(
   organization := "$organization$",
   // Semantic versioning http://semver.org/
   version := "0.1.0-SNAPSHOT",
-  scalaVersion := "2.13.15",
+  scalaVersion := "2.13.18",
   scalacOptions ++= Seq(
-    "-release", "8",
+    "-release", "11",
     "-deprecation",
     "-feature",
     "-unchecked",
     "-Ymacro-annotations"
   ),
-  javacOptions ++= Seq("--release", "8"),
+  javacOptions ++= Seq("--release", "11"),
   // add extra resolved and remove exclude if you need kafka
   // resolvers += "confluent" at "https://packages.confluent.io/maven/",
   excludeDependencies += "org.apache.beam" % "beam-sdks-java-io-kafka"
@@ -104,12 +104,14 @@ lazy val root: Project = project
       "org.apache.beam" % "beam-runners-google-cloud-dataflow-java" % beamVersion  % Runtime,
       $endif$
       $if(FlinkRunner.truthy)$
-      "org.apache.beam" % "beam-runners-flink-1.16" % beamVersion % Runtime,
+      "org.apache.beam" % "beam-runners-flink-1.19" % beamVersion % Runtime,
       "org.apache.flink" % "flink-clients" % flinkVersion % Runtime,
       "org.apache.flink" % "flink-streaming-java" % flinkVersion % Runtime,
       $endif$
       $if(SparkRunner.truthy)$
-      "org.apache.beam" % "beam-runners-spark-3" % beamVersion % Runtime,
+      ("org.apache.beam" % "beam-runners-spark-3" % beamVersion % Runtime)
+        // the runner depends on _2.12 Spark artifacts; use the _2.13 ones below instead
+        .excludeAll(ExclusionRule("org.apache.spark")),
       "org.apache.spark" %% "spark-core" % sparkVersion % Runtime,
       "org.apache.spark" %% "spark-streaming" % sparkVersion % Runtime,
       $endif$
