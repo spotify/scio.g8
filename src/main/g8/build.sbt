@@ -15,7 +15,7 @@ val beamVersion = "2.76.0"
 val guavaVersion = "33.1.0-jre"
 val jacksonVersion = "2.18.8"
 val magnolifyVersion = "0.9.8"
-val nettyVersion = "4.1.132.Final"
+val nettyVersion = "4.1.139.Final"
 val slf4jVersion = "2.0.16"
 $if(DataflowRunner.truthy || DataflowFlexTemplate.truthy)$
 val gcpLibrariesVersion = "26.85.0"
