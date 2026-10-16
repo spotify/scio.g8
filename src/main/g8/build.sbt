@@ -12,7 +12,7 @@ $endif$
 val scioVersion = "0.15.10"
 val beamVersion = "2.76.0"
 
-val guavaVersion = "33.1.0-jre"
+val guavaVersion = "33.7.2-jre"
 val jacksonVersion = "2.18.8"
 val magnolifyVersion = "0.9.8"
 val nettyVersion = "4.1.132.Final"
