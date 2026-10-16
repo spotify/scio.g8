@@ -10,7 +10,7 @@ $endif$
 
 // see https://github.com/spotify/scio/blob/v0.15.10/build.sbt
 val scioVersion = "0.15.10"
-val beamVersion = "2.76.0"
+val beamVersion = "2.77.0"
 
 val guavaVersion = "33.1.0-jre"
 val jacksonVersion = "2.18.8"
