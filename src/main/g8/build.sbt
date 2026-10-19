@@ -71,7 +71,7 @@ lazy val commonSettings = bomSettings ++ Def.settings(
   organization := "$organization$",
   // Semantic versioning http://semver.org/
   version := "0.1.0-SNAPSHOT",
-  scalaVersion := "2.13.18",
+  scalaVersion := "3.10.0",
   scalacOptions ++= Seq(
     "-release", "11",
     "-deprecation",
